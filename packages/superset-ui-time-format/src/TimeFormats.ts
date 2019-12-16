@@ -16,4 +16,34 @@ const TimeFormats = {
   US_DATE,
 };
 
+import { TimeLocaleDefinition, timeFormatLocale } from 'd3-time-format';
+
+export class LocaleDef {
+  LOCAL_DEF: TimeLocaleDefinition;
+  constructor(localeDef: TimeLocaleDefinition) {
+    this.LOCAL_DEF = localeDef;
+  }
+
+  getLocaleDef() {
+    return this.LOCAL_DEF;
+  }
+
+  setLocaleDef(localeDef: TimeLocaleDefinition) {
+    console.log(localeDef);
+    timeFormatLocale(localeDef);
+    this.LOCAL_DEF = localeDef;
+  }
+}
+
+import { makeSingleton } from '@superset-ui/core';
+const getD3LocaleDefInstance = makeSingleton(LocaleDef);
+
+export function getLocaleDef() {
+  return getD3LocaleDefInstance().getLocaleDef();
+}
+
+export function setLocaleDef(localeDef: TimeLocaleDefinition) {
+  return getD3LocaleDefInstance().setLocaleDef(localeDef);
+}
+
 export default TimeFormats;

@@ -1,6 +1,7 @@
-import { utcFormat, timeFormat } from 'd3-time-format';
+import { utcFormat, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { utcUtils, localTimeUtils } from '../utils';
 import TimeFormatter from '../TimeFormatter';
+import { getLocaleDef } from '../TimeFormats';
 
 type FormatsByStep = Partial<{
   millisecond: string;
@@ -37,7 +38,15 @@ export default function createMultiFormatter({
     year = '%Y',
   } = formats;
 
-  const format = useLocalTime ? timeFormat : utcFormat;
+  let format: (specifier: string) => (date: Date) => string;
+  if (typeof getLocaleDef() === 'undefined') {
+    format = useLocalTime ? timeFormat : utcFormat;
+  } else {
+    const localeObject = timeFormatLocale(getLocaleDef());
+    format = useLocalTime ? localeObject.format : localeObject.utcFormat;
+  }
+
+  // const format = useLocalTime ? timeFormat : utcFormat;
 
   const formatMillisecond = format(millisecond);
   const formatSecond = format(second);

@@ -1,5 +1,5 @@
 import { RegistryWithDefaultKey, OverwritePolicy } from '@superset-ui/core';
-import TimeFormats, { LOCAL_PREFIX } from './TimeFormats';
+import TimeFormats, { LOCAL_PREFIX, getLocaleDef } from './TimeFormats';
 import createD3TimeFormatter from './factories/createD3TimeFormatter';
 import TimeFormatter from './TimeFormatter';
 
@@ -25,7 +25,8 @@ export default class TimeFormatterRegistry extends RegistryWithDefaultKey<
     // Create new formatter if does not exist
     const useLocalTime = targetFormat.startsWith(LOCAL_PREFIX);
     const formatString = targetFormat.replace(LOCAL_PREFIX, '');
-    const formatter = createD3TimeFormatter({ formatString, useLocalTime });
+    const locale = getLocaleDef();
+    const formatter = createD3TimeFormatter({ formatString, useLocalTime, locale });
     this.registerValue(targetFormat, formatter);
 
     return formatter;

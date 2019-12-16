@@ -114,5 +114,16 @@
       "yarn run prettier --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "@beemo/cli": "1.0.6",
+    "@beemo/core": "1.0.8",
+    "@beemo/driver-babel": "1.0.6",
+    "@beemo/driver-eslint": "1.0.7",
+    "@beemo/driver-jest": "1.0.4",
+    "@beemo/driver-prettier": "1.0.4",
+    "@beemo/driver-typescript": "1.1.5",
+    "babel-plugin-typescript-to-proptypes": "^1.1.0",
+    "typescript": "3.5.3"
   }
 }
