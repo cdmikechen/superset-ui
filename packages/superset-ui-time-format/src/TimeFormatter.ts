@@ -44,6 +44,11 @@ export default class TimeFormatter extends ExtensibleFunction {
     return this.formatFunc(value);
   }
 
+  resetFunction(config: { formatFunc: TimeFormatFunction }) {
+    const { formatFunc = isRequired('config.formatFunc') } = config;
+    this.formatFunc = formatFunc;
+  }
+
   preview(value: Date = PREVIEW_TIME) {
     return `${value.toUTCString()} => ${this.format(value)}`;
   }

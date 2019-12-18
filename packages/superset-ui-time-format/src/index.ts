@@ -10,8 +10,8 @@ export {
 export { default as createD3TimeFormatter } from './factories/createD3TimeFormatter';
 export { default as createMultiFormatter } from './factories/createMultiFormatter';
 
-export { default as smartDateFormatter, getSmartDateFormatter } from './formatters/smartDate';
+export { default as smartDateFormatter, restSmartDateFormatter } from './formatters/smartDate';
 export {
   default as smartDateVerboseFormatter,
-  getSmartDateVerboseFormatter,
+  restSmartDateVerboseFormatter,
 } from './formatters/smartDateVerbose';

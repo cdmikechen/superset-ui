@@ -27,6 +27,19 @@ export default function createMultiFormatter({
   formats?: FormatsByStep;
   useLocalTime?: boolean;
 }) {
+  console.log('create date formate with = ' + JSON.stringify(formats));
+  let multiFormatFunc = getFormatFunc(useLocalTime, formats);
+
+  return new TimeFormatter({
+    description,
+    formatFunc: (date: Date) => multiFormatFunc(date)(date),
+    id,
+    label,
+    useLocalTime,
+  });
+}
+
+export function getFormatFunc(useLocalTime: boolean, formats: FormatsByStep) {
   const {
     millisecond = '.%L',
     second = ':%S',
@@ -85,11 +98,5 @@ export default function createMultiFormatter({
     return formatYear;
   }
 
-  return new TimeFormatter({
-    description,
-    formatFunc: (date: Date) => multiFormatFunc(date)(date),
-    id,
-    label,
-    useLocalTime,
-  });
+  return multiFormatFunc;
 }
