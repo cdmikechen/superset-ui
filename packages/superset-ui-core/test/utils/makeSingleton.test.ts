@@ -1,12 +1,13 @@
-import makeSingleton from '../../src/utils/makeSingleton';
+import { makeSingleton } from '@superset-ui/core/src';
 
 describe('makeSingleton()', () => {
   class Dog {
     name: string;
+
     isSitting?: boolean;
 
-    constructor(name: string) {
-      this.name = name;
+    constructor(name?: string) {
+      this.name = name || 'Pluto';
     }
 
     sit() {

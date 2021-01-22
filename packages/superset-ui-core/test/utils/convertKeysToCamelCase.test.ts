@@ -1,4 +1,4 @@
-import convertKeysToCamelCase from '../../src/utils/convertKeysToCamelCase';
+import { convertKeysToCamelCase } from '@superset-ui/core/src';
 
 describe('convertKeysToCamelCase(object)', () => {
   it('returns undefined for undefined input', () => {
@@ -22,12 +22,12 @@ describe('convertKeysToCamelCase(object)', () => {
   it('throws error if input is not a plain object', () => {
     expect(() => {
       convertKeysToCamelCase({});
-    }).not.toThrowError();
+    }).not.toThrow();
     expect(() => {
       convertKeysToCamelCase('');
-    }).toThrowError();
+    }).toThrow();
     expect(() => {
       convertKeysToCamelCase(new Map());
-    }).toThrowError();
+    }).toThrow();
   });
 });

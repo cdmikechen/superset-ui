@@ -1,6 +1,8 @@
 /* eslint no-console: 0 */
 import mockConsole from 'jest-mock-console';
-import { Registry, OverwritePolicy } from '../../src';
+import { Registry, OverwritePolicy } from '@superset-ui/core/src';
+
+const loader = () => 'testValue';
 
 describe('Registry', () => {
   it('exists', () => {
@@ -88,7 +90,6 @@ describe('Registry', () => {
     });
     it('does not overwrite if loader is exactly the same', () => {
       const registry = new Registry();
-      const loader = () => 'testValue';
       registry.registerLoader('a', loader);
       const promise1 = registry.getAsPromise('a');
       registry.registerLoader('a', loader);
@@ -142,7 +143,7 @@ describe('Registry', () => {
 
       return registry.getAsPromise('a').then(value => expect(value).toBe('testValue'));
     });
-    it('given the key, returns a promise of result of the loader function if the item is a loader ', () => {
+    it('given the key, returns a promise of result of the loader function if the item is a loader', () => {
       const registry = new Registry();
       registry.registerLoader('a', () => 'testValue');
 
@@ -158,18 +159,16 @@ describe('Registry', () => {
     it('returns a rejected promise if the item with specified key does not exist', () => {
       const registry = new Registry();
 
-      return registry.getAsPromise('a').then(null, err => {
+      return registry.getAsPromise('a').then(null, (err: Error) => {
         expect(err.toString()).toEqual('Error: Item with key "a" is not registered.');
       });
     });
-    it('If the key was registered multiple times, returns a promise of the most recent item.', () => {
+    it('If the key was registered multiple times, returns a promise of the most recent item.', async () => {
       const registry = new Registry();
       registry.registerValue('a', 'testValue');
-      const promise1 = registry.getAsPromise('a').then(value => expect(value).toBe('testValue'));
+      expect(await registry.getAsPromise('a')).toBe('testValue');
       registry.registerLoader('a', () => 'newValue');
-      const promise2 = registry.getAsPromise('a').then(value => expect(value).toBe('newValue'));
-
-      return Promise.all([promise1, promise2]);
+      expect(await registry.getAsPromise('a')).toBe('newValue');
     });
   });
 
@@ -271,7 +270,7 @@ describe('Registry', () => {
     });
     it('does not throw error if the key does not exist', () => {
       const registry = new Registry();
-      expect(() => registry.remove('a')).not.toThrowError();
+      expect(() => registry.remove('a')).not.toThrow();
     });
     it('returns itself', () => {
       const registry = new Registry();

@@ -1,29 +1,44 @@
-.babelrc
-.cache
 .DS_Store
+*.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Cache
+.bundle/
+.happo/
+.idea/
+.next/
+.cache
 .eslintcache
-.eslintignore
-.eslintrc.js
 .idea
 .npm
-.prettierignore
 .vscode
 .yarnclean
 
-*.log
-*.map
-*.min.js
-
-babel.config.js
+# Directories
 build/
 coverage/
+dist/
 esm/
-jest.config.js
 lib/
-logs/
+public/
 node_modules/
-package-lock.json
-prettier.config.js
-tsconfig.json
-yarn.lock
+tmp/
+_gh-pages/
+
+# Custom
+*.map
+*.min.js
 test-changelog.md
+
+*.tsbuildinfo
+
+# Ignore npm lock files, always use yarn.lock instead
+npm-shrinkwrap.json
+package-lock.json
+
+# Ignore yarn.lock in packages
+plugins/*/yarn.lock
+packages/*/yarn.lock

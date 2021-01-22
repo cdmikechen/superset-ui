@@ -1,15 +1,14 @@
-import RegistryWithDefaultKey from '../../src/models/RegistryWithDefaultKey';
-import Registry from '../../src/models/Registry';
+import { Registry, RegistryWithDefaultKey } from '@superset-ui/core/src';
 
 describe('RegistryWithDefaultKey', () => {
-  it('exists', () => {
-    expect(RegistryWithDefaultKey).toBeDefined();
-  });
-
   let registry: RegistryWithDefaultKey<number>;
 
   beforeEach(() => {
     registry = new RegistryWithDefaultKey();
+  });
+
+  it('exists', () => {
+    expect(RegistryWithDefaultKey).toBeDefined();
   });
 
   describe('new RegistryWithDefaultKey(config)', () => {
@@ -31,10 +30,7 @@ describe('RegistryWithDefaultKey', () => {
 
   describe('.get()', () => {
     beforeEach(() => {
-      registry
-        .registerValue('abc', 100)
-        .registerValue('def', 200)
-        .setDefaultKey('abc');
+      registry.registerValue('abc', 100).registerValue('def', 200).setDefaultKey('abc');
     });
     it('.get() returns value from default key', () => {
       expect(registry.get()).toEqual(100);
